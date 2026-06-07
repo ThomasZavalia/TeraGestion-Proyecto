@@ -192,7 +192,9 @@ using (var scope = app.Services.CreateScope())
             Username = "admin",
             Email = "admin@teragestion.com",
             Rol = "Admin",
-            DuracionTurnoDefault = 40
+            DuracionTurnoDefault = 40,
+            EstaActivo = true
+           
         };
 
         admin.PasswordHash = hasher.HashPassword(admin, "Admin123!");

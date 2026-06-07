@@ -1,39 +1,35 @@
-# Environment variables — NEVER commit these
+
 .env
 *.env.local
 
-# Internal AI / system generated files
 .system_generated/
 *.resolved
 *.resolved.*
 *.metadata.json
 
-# Presentation / defense artifacts (local only)
 analisis_teragestion.md
 defensa_teragestion_v*.md
 repomix-output.xml
 
-# Docker volumes / data
 postgres_data/
 
-# .NET
+
 **/bin/
 **/obj/
 **/.vs/
 *.user
 
-# Node
 **/node_modules/
 **/dist/
 **/.vite/
 
-# Logs
+
 *.log
 
-# OS
+
 .DS_Store
 Thumbs.db
 
-# Rider / VS Code
+
 .idea/
 .vscode/settings.json

@@ -15,6 +15,7 @@ Sistema web para la gestión integral de turnos, pacientes, sesiones y facturaci
 | Autenticación | JWT + reCAPTCHA v3 |
 | Tiempo real | SignalR |
 | Contenedores | Docker + Docker Compose |
+| Cloud | Azure App Service (deployed) |
 
 ---
 
