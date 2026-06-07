@@ -1,0 +1,94 @@
+
+:root {
+  --fc-bg-color: var(--chakra-colors-white); 
+  --fc-border-color: var(--chakra-colors-gray-200); 
+  --fc-text-color: var(--chakra-colors-gray-700); 
+  --fc-dayheader-text-color: var(--chakra-colors-gray-600); 
+  --fc-today-bg-color: var(--chakra-colors-blue-50); 
+  
+ 
+  --turno-pendiente-bg: var(--chakra-colors-blue-500);
+  --turno-pendiente-border: var(--chakra-colors-blue-600);
+  --turno-pendiente-text: var(--chakra-colors-white);
+  
+  --turno-pagado-bg: var(--chakra-colors-green-500);
+  --turno-pagado-border: var(--chakra-colors-green-600);
+  --turno-pagado-text: var(--chakra-colors-white);
+  
+  
+  --turno-cancelado-bg: var(--chakra-colors-red-500);
+  --turno-cancelado-border: var(--chakra-colors-red-600);
+  --turno-cancelado-text: var(--chakra-colors-white);
+}
+
+
+.chakra-ui-dark {
+  --fc-bg-color: var(--chakra-colors-gray-800); 
+  --fc-border-color: var(--chakra-colors-gray-700); 
+  --fc-text-color: var(--chakra-colors-gray-200); 
+  --fc-dayheader-text-color: var(--chakra-colors-gray-400); 
+  --fc-today-bg-color: var(--chakra-colors-blue-900); 
+
+
+  --turno-pendiente-bg: var(--chakra-colors-blue-400);
+  --turno-pendiente-border: var(--chakra-colors-blue-500);
+  --turno-pendiente-text: var(--chakra-colors-gray-900); 
+  
+  --turno-pagado-bg: var(--chakra-colors-green-400);
+  --turno-pagado-border: var(--chakra-colors-green-500);
+  --turno-pagado-text: var(--chakra-colors-gray-900);
+  
+
+  --turno-cancelado-bg: var(--chakra-colors-red-400);
+  --turno-cancelado-border: var(--chakra-colors-red-500);
+  --turno-cancelado-text: var(--chakra-colors-gray-900);
+}
+
+
+
+
+.fc-event.turno-pagado {
+    background-color: #48BB78 !important;
+    border-color: #48BB78 !important;
+}
+
+
+.fc-event.turno-cancelado {
+    background-color: #E53E3E !important;
+    border-color: #E53E3E !important;
+}
+
+
+.fc-event.turno-pendiente {
+    background-color: #3182CE !important;
+    border-color: #3182CE !important;
+}
+
+
+.fc-event.turno-ausente,
+.fc-event.ausencia {
+    background-color: #ED8936 !important;
+    border-color: #ED8936 !important;
+}
+
+
+.fc-daygrid-event .fc-event-title {
+  white-space: normal; 
+}
+
+
+.fc-event:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+}
+.fc-timegrid-slot:hover {
+  cursor: pointer;
+  background-color: #f0f9ff;
+  transition: background-color 0.1s ease;
+}
+.fc-view-harness {
+  cursor: pointer;
+}

@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Archivos de entorno (¡MUY IMPORTANTE!)
+.env
+.env.local
+.env.*
+
+# Archivos de VSCode (opcional si todos lo usan)
+.vscode/
