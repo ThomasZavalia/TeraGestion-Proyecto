@@ -50,11 +50,14 @@ jobs:
           for i in $(seq 1 30); do
             if curl -s http://localhost:5000/api/Auth/login > /dev/null 2>&1; then
               echo "Backend listo!"
-              break
+              exit 0
             fi
             echo "Intento $i/30 - esperando..."
             sleep 2
           done
+          echo "❌ ERROR: El backend nunca respondió. Mostrando logs de Docker para debuggear:"
+          docker compose logs backend db
+          exit 1
 
       - name: Esperar que el frontend esté listo
         run: |
