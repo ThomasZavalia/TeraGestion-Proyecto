@@ -13,19 +13,27 @@ namespace TeraGestion.UiTests
         private readonly string _frontendUrl =
             Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "http://localhost:5173/login";
 
+        private string GetTestResultsDirectory()
+        {
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var projectDir = Path.GetFullPath(Path.Combine(baseDir, "..", "..", ".."));
+            var resultsDir = Path.Combine(projectDir, "TestResults");
+            Directory.CreateDirectory(resultsDir);
+            return resultsDir;
+        }
+
         [Fact]
         public async Task Login_ConCredencialesInvalidas_DebePermanecer_EnLoginPage()
         {
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(
                 new BrowserTypeLaunchOptions { Headless = IsHeadless });
-           var context = await browser.NewContextAsync(new BrowserNewContextOptions
-{
-    
-    RecordVideoDir = "TestResults/videos/",
-   
-    ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
-});
+            var testResultsDir = GetTestResultsDirectory();
+            var context = await browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                RecordVideoDir = Path.Combine(testResultsDir, "videos"),
+                ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
+            });
 
 
 await context.Tracing.StartAsync(new TracingStartOptions
@@ -52,7 +60,7 @@ await context.Tracing.StartAsync(new TracingStartOptions
             {
                 await context.Tracing.StopAsync(new TracingStopOptions
                 {
-                    Path = "TestResults/trace_invalidas.zip" 
+                    Path = Path.Combine(testResultsDir, "trace_invalidas.zip")
                 });
 
                 await browser.CloseAsync();
@@ -67,13 +75,12 @@ await context.Tracing.StartAsync(new TracingStartOptions
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(
                 new BrowserTypeLaunchOptions { Headless = IsHeadless });
-           var context = await browser.NewContextAsync(new BrowserNewContextOptions
-{
-    
-    RecordVideoDir = "TestResults/videos/",
-   
-    ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
-});
+            var testResultsDir = GetTestResultsDirectory();
+            var context = await browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                RecordVideoDir = Path.Combine(testResultsDir, "videos"),
+                ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
+            });
 
 
 await context.Tracing.StartAsync(new TracingStartOptions
@@ -98,7 +105,7 @@ await context.Tracing.StartAsync(new TracingStartOptions
             {
                 await context.Tracing.StopAsync(new TracingStopOptions
                 {
-                    Path = "TestResults/trace_validas.zip" 
+                    Path = Path.Combine(testResultsDir, "trace_validas.zip")
                 });
 
                 await browser.CloseAsync();
@@ -111,13 +118,12 @@ await context.Tracing.StartAsync(new TracingStartOptions
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(
                 new BrowserTypeLaunchOptions { Headless = IsHeadless });
-          var context = await browser.NewContextAsync(new BrowserNewContextOptions
-{
-    
-    RecordVideoDir = "TestResults/videos/",
-    
-    ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
-});
+            var testResultsDir = GetTestResultsDirectory();
+            var context = await browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                RecordVideoDir = Path.Combine(testResultsDir, "videos"),
+                ViewportSize = new ViewportSize { Width = 1280, Height = 720 }
+            });
 
 
 await context.Tracing.StartAsync(new TracingStartOptions
@@ -142,7 +148,7 @@ await context.Tracing.StartAsync(new TracingStartOptions
             {
                 await context.Tracing.StopAsync(new TracingStopOptions
                 {
-                    Path = "TestResults/trace_vacias.zip" 
+                    Path = Path.Combine(testResultsDir, "trace_vacias.zip")
                 });
 
                 await browser.CloseAsync();
