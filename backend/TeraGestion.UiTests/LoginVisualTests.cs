@@ -47,7 +47,7 @@ namespace TeraGestion.UiTests
             var loginPage = new LoginPage(page);
 
             await loginPage.NavegarA(_frontendUrl);
-            await loginPage.IngresarCredenciales("admin", "123456");
+            await loginPage.IngresarCredenciales("admin", "Admin123!");
 
             var redirigioAlHome = await loginPage.EstaEnPaginaInicio();
             Assert.True(redirigioAlHome, "Con credenciales válidas debe redirigir al home");
