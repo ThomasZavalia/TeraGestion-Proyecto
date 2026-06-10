@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const publicAxios = axios.create({
-  baseURL: 'https://api-teragestion-tz-cpcch8dseddre2a2.centralus-01.azurewebsites.net/api', 
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
 });
 
 export const publicService = {

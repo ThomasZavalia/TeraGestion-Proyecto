@@ -67,7 +67,7 @@ namespace Services
             var resultado = await _usuarioRepository.Eliminar(id);
             if (!resultado) throw new KeyNotFoundException("Usuario no encontrado");
 
-            // Si Activo=true, lo estamos bloqueando. Si Activo=false, lo estamos desbloqueando.
+           
             string accion = usuario.Activo ? "BLOQUEO" : "DESBLOQUEO";
             await _auditoriaService.RegistrarAsync(accion, "Usuarios", "Usuario", id, $"El usuario {usuario.Username} fue {(usuario.Activo ? "bloqueado" : "desbloqueado")}.");
             return true;

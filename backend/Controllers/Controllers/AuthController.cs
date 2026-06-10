@@ -32,7 +32,7 @@ namespace Controllers.Controllers
 
             if (usuario == null)
             {
-                return BadRequest(new { error = "Usuario o contraseña incorrectos." });
+                return Unauthorized(new { error = "Usuario o contraseña incorrectos." });
             }
 
             var token = GenerateJwtToken(usuario);

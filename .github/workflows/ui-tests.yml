@@ -1,0 +1,87 @@
+name: UI Tests (Playwright)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  ui-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Crear archivo .env para Docker Compose
+        run: |
+          cat > .env << 'EOF'
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          JWT_KEY=${{ secrets.JWT_KEY }}
+          JWT_ISSUER=TeraAPI
+          JWT_AUDIENCE=TeraAPIUsers
+          FRONTEND_BASE_URL=http://localhost:5173
+          SMTP_SERVER=smtp.gmail.com
+          SMTP_PORT=587
+          SMTP_SENDER_NAME=TeraGestion Notificaciones
+          SMTP_SENDER_EMAIL=${{ secrets.SMTP_SENDER_EMAIL }}
+          SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          SMTP_ENABLE_SSL=true
+          RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+          RECAPTCHA_MIN_SCORE=0.5
+          EOF
+
+      - name: Levantar servicios con Docker Compose
+        run: docker compose up -d --build
+
+      - name: Esperar que el backend esté listo
+        run: |
+          echo "Esperando que la API responda en localhost:5000..."
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:5000/health > /dev/null 2>&1; then
+              echo "Backend listo!"
+              break
+            fi
+            echo "Intento $i/30 - esperando..."
+            sleep 2
+          done
+
+      - name: Esperar que el frontend esté listo
+        run: |
+          echo "Esperando que el frontend responda en localhost:5173..."
+          for i in $(seq 1 15); do
+            if curl -sf http://localhost:5173 > /dev/null 2>&1; then
+              echo "Frontend listo!"
+              break
+            fi
+            echo "Intento $i/15 - esperando..."
+            sleep 2
+          done
+
+      - name: Compilar proyecto de UI tests
+        run: dotnet build backend/TeraGestion.UiTests/TeraGestion.UiTests.csproj
+
+      - name: Instalar Playwright y Chromium
+        run: |
+          cd backend/TeraGestion.UiTests
+          pwsh bin/Debug/net8.0/playwright.ps1 install chromium --with-deps
+
+      - name: Ejecutar tests de UI
+        env:
+          HEADLESS: "true"
+          FRONTEND_URL: "http://localhost:5173/login"
+        run: dotnet test backend/TeraGestion.UiTests/TeraGestion.UiTests.csproj --no-build --verbosity normal
+
+      - name: Apagar servicios Docker
+        if: always()
+        run: docker compose down

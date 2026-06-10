@@ -153,6 +153,20 @@ builder.Services.AddRateLimiter(options =>
 
 var app = builder.Build();
 
+app.UseCors("AllowFrontend");
+app.UseMiddleware<Controllers.Middlewares.ErrorHandlingMiddleware>();
+app.UseRateLimiter();
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiddleware<Controllers.Middlewares.CheckUsuarioActivoMiddleware>();
+
+app.MapHub<NotificacionesHub>("/hubs/notificaciones");
+
+
+
+app.MapControllers();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -164,16 +178,7 @@ if (app.Environment.IsDevelopment())
 
 
 
-app.UseCors("AllowFrontend");
-app.UseMiddleware<Controllers.Middlewares.ErrorHandlingMiddleware>();
-app.MapHub<NotificacionesHub>("/hubs/notificaciones");
-app.UseRateLimiter();
 
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseMiddleware<Controllers.Middlewares.CheckUsuarioActivoMiddleware>();
-
-app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -193,7 +198,7 @@ using (var scope = app.Services.CreateScope())
             Email = "admin@teragestion.com",
             Rol = "Admin",
             DuracionTurnoDefault = 40,
-            EstaActivo = true
+            Activo = true
            
         };
 

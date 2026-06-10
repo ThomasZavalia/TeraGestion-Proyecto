@@ -44,12 +44,13 @@ const LoginPage = () => {
             <Heading size="lg">TeraGestión</Heading>
             <Text color={textColor}>Ingresa a tu cuenta</Text> 
           </Box>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <VStack spacing="4">
               
               <FormControl isRequired>
                 <FormLabel>Nombre de Usuario</FormLabel>
                 <Input
+                  id="input-username"
                   type="text"
                   placeholder="tu-usuario"
                   value={username}
@@ -62,6 +63,7 @@ const LoginPage = () => {
                 <FormLabel>Contraseña</FormLabel>
                 <InputGroup>
                   <Input
+                    id="input-password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     value={password}
@@ -84,6 +86,7 @@ const LoginPage = () => {
 
               </FormControl>
               <Button
+                id="btn-login"
                 type="submit"
                 colorScheme="blue"
                 w="full"

@@ -32,8 +32,9 @@ export const SignalRProvider = ({ children }) => {
 
     fetchHistorial();
 
+    const signalRUrl = import.meta.env.VITE_SIGNALR_URL || 'http://localhost:5000';
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://api-teragestion-tz-cpcch8dseddre2a2.centralus-01.azurewebsites.net/hubs/notificaciones", { 
+      .withUrl(`${signalRUrl}/hubs/notificaciones`, { 
         accessTokenFactory: () => token 
       })
       .withAutomaticReconnect()

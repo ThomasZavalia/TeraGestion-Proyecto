@@ -20,7 +20,8 @@ const ConfirmarTurnoPage = () => {
 
       try {
       
-        await axios.post(`https://api-teragestion-tz-cpcch8dseddre2a2.centralus-01.azurewebsites.net/api/public/turnos/confirmar?id=${id}&token=${token}`);
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        await axios.post(`${baseUrl}/public/turnos/confirmar?id=${id}&token=${token}`);
         setStatus('success');
       } catch (error) {
         console.error(error);

@@ -1,0 +1,30 @@
+name: API & Unit Tests
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar dependencias
+        run: dotnet restore backend/TeraGestion.sln
+        working-directory: ${{ github.workspace }}
+
+      - name: Compilar solución
+        run: dotnet build backend/TeraGestion.sln --no-restore --configuration Release
+
+      - name: Ejecutar tests de API e integración
+        run: dotnet test backend/TeraGestion.Tests/TeraGestion.Tests.csproj --no-build --configuration Release --verbosity normal
