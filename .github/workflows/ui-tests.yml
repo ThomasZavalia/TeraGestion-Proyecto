@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "Esperando que la API responda en localhost:5000..."
           for i in $(seq 1 30); do
-            if curl -sf http://localhost:5000/health > /dev/null 2>&1; then
+            if curl -s http://localhost:5000/api/Auth/login > /dev/null 2>&1; then
               echo "Backend listo!"
               break
             fi

@@ -30,7 +30,7 @@ namespace TeraGestion.ApiTests
             loginRequest.AddJsonBody(new
         {
             username = "admin",
-            password = "123456"
+            password = "Admin123!"
         });
 
            

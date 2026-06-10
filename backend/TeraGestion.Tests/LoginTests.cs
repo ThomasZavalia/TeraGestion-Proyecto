@@ -25,7 +25,7 @@ public class LoginTests
         request.AddJsonBody(new
         {
             username = "admin",
-            password = "123456"
+            password = "Admin123!"
         });
 
 
