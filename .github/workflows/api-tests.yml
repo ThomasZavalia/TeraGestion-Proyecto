@@ -54,7 +54,7 @@ jobs:
             echo "Intento $i/30 - esperando..."
             sleep 2
           done
-          echo "❌ ERROR: El backend nunca respondió. Mostrando logs de Docker para debuggear:"
+          echo " ERROR: El backend nunca respondió. Mostrando logs de Docker para debuggear:"
           docker compose logs backend db
           exit 1
 
