@@ -33,3 +33,6 @@ Thumbs.db
 
 .idea/
 .vscode/settings.json
+
+# Backups de base de datos generados por scripts/backup.sh
+backups/
