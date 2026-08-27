@@ -66,7 +66,6 @@ const Sidebar = ({ width, isOpen, display, onClose, isDesktop }) => {
   
   const { user } = useAuth();
 
-  console.log("Usuario en el SideBar:", user);
   return (
     <Box
       as="nav"

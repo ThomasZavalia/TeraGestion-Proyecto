@@ -86,8 +86,6 @@ export const FormularioPacienteModal = ({ isOpen, onClose, onGuardado, pacienteA
       email: data.email || null, 
     };
 
-    console.log("Datos (limpios) que se van a enviar:", datosParaEnviar); 
-
     try {
       if (isEditing) {
         datosParaEnviar.activo = pacienteAEditar.activo ?? true; 

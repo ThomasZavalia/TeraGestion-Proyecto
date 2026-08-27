@@ -89,7 +89,6 @@ const {
   useEffect(() => {
     
     if (location.state?.abrirModalNuevo) {
-      console.log("Detectado 'abrirModalNuevo' desde el Home.");
       handleNuevo(); 
       
    

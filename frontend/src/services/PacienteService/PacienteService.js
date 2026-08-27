@@ -50,9 +50,6 @@ export const pacienteService = {
         params.append('tienePagosPendientes', filtros.tienePagosPendientes);
       }
 
-      console.log("Enviando filtros a la API:", Object.fromEntries(params)); 
-
-     
       const { data } = await axiosInstance.get(API_URL, { params });
       return data;
 
@@ -87,7 +84,7 @@ export const pacienteService = {
       const {data} = await axiosInstance.put(`${API_URL}/${id}`, pacienteData);
       return data;
     }catch (error){
-      console.log("Error al actualizar el paciente:", error);
+      console.error("Error al actualizar el paciente:", error);
       throw error;
     }
   },
@@ -103,7 +100,7 @@ export const pacienteService = {
       const {data} = await axiosInstance.get(`${API_URL}/${id}/detalles`);
       return data;
     }catch (error) {
-      console.log("Error al obtener los detalles del paciente:", error);
+      console.error("Error al obtener los detalles del paciente:", error);
       throw error;
     }
   },
@@ -114,7 +111,7 @@ export const pacienteService = {
       const {data} = await axiosInstance.delete(`${API_URL}/${id}`);
       return data;
     }catch (error){
-      console.log("Error al eliminar el paciente:", error);
+      console.error("Error al eliminar el paciente:", error);
       throw error;
     }
   },

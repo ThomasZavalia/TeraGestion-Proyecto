@@ -89,9 +89,7 @@ const fetchData = async (startStr, endStr) => {
             setTerapeutaSeleccionado(terapeutaActual);
         }
 
-        console.log("---- RECARGANDO DATOS (V3) ----");
-
-      const eventosTurnos = turnosData.map(turno => {
+        const eventosTurnos = turnosData.map(turno => {
          
             const estado = String(turno.estado || '').trim().toLowerCase();
             const estaPagado = turno.estaPagado; 
@@ -156,7 +154,6 @@ const fetchData = async (startStr, endStr) => {
  
  useEffect(() => {
     if (ultimaNotificacion && rangoVisible.start && rangoVisible.end) {
-        console.log("Turno nuevo detectado, recargando calendario...", rangoVisible);
         fetchData(rangoVisible.start, rangoVisible.end); 
     }
   }, [ultimaNotificacion]);
@@ -288,8 +285,6 @@ const handleTimeSelect = async (time) => {
 };
   
  const handleEditRequest = (datosDelTurno) => { 
-  console.log("[handleEditRequest] Solicitud editar con datos:", datosDelTurno);
-  
   
   if (!datosDelTurno || !datosDelTurno.id) {
       console.error("[handleEditRequest] ERROR: Se recibieron datos inválidos.", datosDelTurno);
@@ -333,7 +328,6 @@ const recargarCalendario = () => {
 
 
 const handleTurnoUpdate = (eventoFormateado) => {
-  console.log("handleTurnoUpdate - Recibiendo evento:", eventoFormateado);
   
   const estadoRaw = eventoFormateado.extendedProps?.estado || 'Pendiente';
   const estado = String(estadoRaw).trim().toLowerCase();
@@ -384,13 +378,11 @@ const handleTurnoUpdate = (eventoFormateado) => {
 };
 
  const handleCloseCreateModal = () => {
-console.log("Cerrando Modal Crear/Editar."); 
  onCreateClose(); 
  
  };
 
  const handleCloseViewModal = () => {
-console.log("Cerrando Modal Ver y limpiando selectedTurnoEvent.");
 onViewClose(); 
 setSelectedTurnoEvent(null); 
       
@@ -483,8 +475,6 @@ const fechaParaModalCreacion = !isEditingMode ? selectedFullDate : null;
  
   const turnoParaModalEdicion = isEditingMode ? turnoParaEditar : null;
 
-
-  console.log("Render TurnosPage - isCreateOpen:", isCreateOpen, "isEditingMode:", isEditingMode, "turnoParaEditar:", turnoParaEditar);
 
   return(
     <Box>

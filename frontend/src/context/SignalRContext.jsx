@@ -46,7 +46,6 @@ export const SignalRProvider = ({ children }) => {
     return () => {
       if (newConnection) {
         newConnection.stop();
-        console.log("Conexión de SignalR cerrada correctamente.");
       }
     };
   }, []);
@@ -72,7 +71,7 @@ export const SignalRProvider = ({ children }) => {
             });
           });
         })
-        .catch(e => console.log(' Error conectando SignalR: ', e));
+        .catch(e => console.error('Error conectando SignalR:', e));
 
       return () => {
         connection.off('RecibirNotificacion');

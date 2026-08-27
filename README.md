@@ -1,6 +1,13 @@
 # TeraGestión — Sistema de Gestión para Clínicas Privadas
 
-Proyecto final de la **Tecnicatura en Programación** — UTN / Instituto.  
+![CI - API Tests](https://github.com/ThomasZavalia/TeraGestion-Proyecto/actions/workflows/api-tests.yml/badge.svg)
+![CI - UI Tests](https://github.com/ThomasZavalia/TeraGestion-Proyecto/actions/workflows/ui-tests.yml/badge.svg)
+![.NET](https://img.shields.io/badge/.NET-8.0-purple?logo=dotnet)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
+
+Proyecto final de la **Tecnicatura en Programación** — UTN.  
 Sistema web para la gestión integral de turnos, pacientes, sesiones y facturación en centros de salud privados.
 
 ---
@@ -12,10 +19,25 @@ Sistema web para la gestión integral de turnos, pacientes, sesiones y facturaci
 | Backend | ASP.NET Core 8 — Clean Architecture |
 | Frontend | React + Vite + Chakra UI |
 | Base de datos | PostgreSQL 15 |
-| Autenticación | JWT + reCAPTCHA v3 |
-| Tiempo real | SignalR |
+| Autenticación | JWT + BCrypt + reCAPTCHA v3 |
+| Tiempo real | SignalR (WebSockets) |
 | Contenedores | Docker + Docker Compose |
-| Cloud | Azure App Service (deployed) |
+| Cloud | Azure App Service |
+| Testing API | xUnit + FluentAssertions |
+| Testing UI | Playwright (E2E headless) |
+| CI/CD | GitHub Actions |
+
+---
+
+## Características principales
+
+- **Agenda interactiva** con FullCalendar y actualizaciones en tiempo real vía SignalR
+- **Gestión de pacientes** con historial clínico, pagos y sesiones
+- **Facturación** con soporte para Obras Sociales y pagos particulares
+- **Autenticación segura** con JWT, hashing BCrypt y reCAPTCHA v3
+- **Notificaciones por email** con recordatorios automáticos de turnos (Gmail API)
+- **Tests automatizados** de API y UI con CI/CD en cada push
+- **Dockerizado** — un solo comando para levantar todo el entorno
 
 ---
 
@@ -29,9 +51,17 @@ No se requiere instalar .NET, Node.js ni PostgreSQL por separado.
 
 ## Cómo ejecutar el proyecto
 
-### 1. Configurar las variables de entorno
+### Opción 1 — Script automático (recomendado)
 
-Copiá el archivo de ejemplo y completá los valores:
+```bash
+bash scripts/setup.sh
+```
+
+El script verifica las dependencias, crea el `.env` si no existe y levanta todos los contenedores.
+
+### Opción 2 — Manual
+
+#### 1. Configurar las variables de entorno
 
 ```bash
 cp .env.example .env
@@ -58,7 +88,7 @@ RECAPTCHA_SECRET_KEY=tu_clave_de_recaptcha
 > **Nota:** Las funciones de email y reCAPTCHA son opcionales para explorar el sistema.  
 > Sin configurarlas, el resto de las funcionalidades opera con normalidad.
 
-### 2. Levantar los contenedores
+#### 2. Levantar los contenedores
 
 ```bash
 docker compose up -d --build
@@ -87,6 +117,33 @@ El proceso descarga las imágenes base y compila el proyecto. La primera vez pue
 
 ---
 
+## Scripts de utilidad
+
+| Script | Descripción |
+|--------|-------------|
+| `bash scripts/setup.sh` | Configuración inicial del entorno |
+| `bash scripts/healthcheck.sh` | Verifica el estado de todos los servicios |
+| `bash scripts/backup.sh` | Genera un backup de la base de datos PostgreSQL |
+
+---
+
+## Tests automatizados
+
+El proyecto incluye una suite de pruebas automatizadas que se ejecutan en cada push mediante GitHub Actions:
+
+- **Tests de API** (`xUnit`): Validan autenticación, autorización y reglas de negocio críticas
+- **Tests de UI E2E** (`Playwright`): Verifican flujos de login en modo headless con captura de trazas y video
+
+```bash
+# Correr tests de API
+dotnet test backend/TeraGestion.Tests/TeraGestion.Tests.csproj
+
+# Correr tests de UI
+dotnet test backend/TeraGestion.UiTests/TeraGestion.UiTests.csproj
+```
+
+---
+
 ## Apagar el sistema
 
 ```bash
@@ -105,13 +162,17 @@ docker compose down -v
 
 ```
 TeraGestion-Proyecto/
-├── backend/          # API REST en ASP.NET Core 8
-│   ├── Controllers/  # Endpoints y configuración
-│   ├── Services/     # Lógica de negocio
-│   ├── Core/         # Entidades, interfaces y DTOs
-│   └── Infraestructure/ # Repositorios y acceso a datos
-├── frontend/         # Aplicación React
+├── backend/
+│   ├── Controllers/      # Endpoints y configuración de la API
+│   ├── Services/         # Lógica de negocio
+│   ├── Core/             # Entidades, interfaces y DTOs
+│   ├── Infraestructure/  # Repositorios y acceso a datos (EF Core)
+│   ├── TeraGestion.Tests/     # Tests de integración de API (xUnit)
+│   └── TeraGestion.UiTests/   # Tests E2E de UI (Playwright)
+├── frontend/             # Aplicación React + Vite
+├── scripts/              # Scripts Bash de setup, healthcheck y backup
+├── .github/workflows/    # Pipelines de CI/CD (GitHub Actions)
 ├── docker-compose.yml
-├── .env.example      # Plantilla de configuración
+├── .env.example
 └── README.md
 ```

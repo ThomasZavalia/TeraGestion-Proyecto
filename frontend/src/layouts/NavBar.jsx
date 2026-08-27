@@ -49,8 +49,6 @@ const handleLogout = () => {
 
   const handlePacienteChange = (selectedOption) => {
     if (selectedOption) {
-      console.log("Navegando a paciente:", selectedOption.value);
-    
       navigate(`/pacientes/${selectedOption.value}`);
       
     

@@ -139,9 +139,6 @@ const handleEditar = () => {
         ...detalle
       };
 
-    
-      console.log("Enviando estos datos al modal de edición:", datosCompletosParaEditar);
-
    
       onEdit(datosCompletosParaEditar); 
 

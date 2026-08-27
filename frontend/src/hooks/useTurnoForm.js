@@ -160,7 +160,6 @@ useEffect(() => {
     }
 
     setIsSubmitting(true);
-    console.log('--- handleSubmit --- Mode:', isEditingMode ? 'EDIT' : 'CREATE'); 
 
  
     const turnoDtoBase = {
@@ -182,7 +181,6 @@ useEffect(() => {
            
         };
 
-        console.log('Update ID:', turnoAEditar.id, 'DTO:', dtoActualizacion); 
         const turnoActualizado = await turnoService.updateTurno(turnoAEditar.id, dtoActualizacion);
         
         toast({ title: 'Turno Actualizado', status: 'success', duration: 3000 });
@@ -203,7 +201,6 @@ useEffect(() => {
             terapeutaId: parseInt(terapeutaId, 10)
         };
 
-        console.log('Create DTO:', dtoCreacion); 
         const nuevoTurno = await turnoService.createTurno(dtoCreacion);
         
         toast({ title: 'Turno Creado', description: `Turno agendado.`, status: 'success', duration: 3000 });
