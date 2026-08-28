@@ -6,6 +6,7 @@
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
+![Grafana](https://img.shields.io/badge/Grafana-Monitoring-F46800?logo=grafana)
 
 Proyecto final de la **Tecnicatura en Programación** — UTN.  
 Sistema web para la gestión integral de turnos, pacientes, sesiones y facturación en centros de salud privados.
@@ -23,6 +24,9 @@ Sistema web para la gestión integral de turnos, pacientes, sesiones y facturaci
 | Tiempo real | SignalR (WebSockets) |
 | Contenedores | Docker + Docker Compose |
 | Cloud | Azure App Service |
+| Logging | Serilog (structured logs) |
+| Métricas | prometheus-net |
+| Monitoreo | Prometheus + Grafana |
 | Testing API | xUnit + FluentAssertions |
 | Testing UI | Playwright (E2E headless) |
 | CI/CD | GitHub Actions |
@@ -102,6 +106,9 @@ El proceso descarga las imágenes base y compila el proyecto. La primera vez pue
 |----------|-----|
 | Frontend | http://localhost:5173 |
 | API (Swagger) | http://localhost:5000/swagger |
+| Métricas raw | http://localhost:5000/metrics |
+| Prometheus | http://localhost:9090 |
+| Grafana (Dashboard) | http://localhost:3000 |
 
 ---
 
