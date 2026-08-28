@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
+using Prometheus;
 using Services;
 using Services.BackgroundJobs;
 using System.Text;
@@ -157,14 +158,14 @@ var app = builder.Build();
 app.UseCors("AllowFrontend");
 app.UseMiddleware<Controllers.Middlewares.ErrorHandlingMiddleware>();
 app.UseRateLimiter();
+app.UseHttpMetrics(); 
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<Controllers.Middlewares.CheckUsuarioActivoMiddleware>();
 
 app.MapHub<NotificacionesHub>("/hubs/notificaciones");
-
-
+app.MapMetrics();  
 
 app.MapControllers();
 
